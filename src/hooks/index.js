@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
+import moment from "moment";
 import { firebase } from "../firebase";
 import { collatedTasksExist } from "../helpers";
-import moment from "moment";
-//const collatedTasksExist = () => {};
 
 export const useTasks = (selectedProject) => {
   const [tasks, setTasks] = useState([]);
@@ -10,9 +9,10 @@ export const useTasks = (selectedProject) => {
 
   useEffect(() => {
     let unsubscribe = firebase
-      .firebase()
+      .firestore()
       .collection("tasks")
-      .where("userId", "==", "omar");
+      .where("userid", "==", "omar01125");
+
     unsubscribe =
       selectedProject && !collatedTasksExist(selectedProject)
         ? (unsubscribe = unsubscribe.where("projectid", "==", selectedProject))
@@ -25,11 +25,13 @@ export const useTasks = (selectedProject) => {
         : selectedProject === "INBOX" || selectedProject === 0
         ? (unsubscribe = unsubscribe.where("date", "==", ""))
         : unsubscribe;
+
     unsubscribe = unsubscribe.onSnapshot((snapshot) => {
       const newTasks = snapshot.docs.map((task) => ({
         id: task.id,
         ...task.data(),
       }));
+
       setTasks(
         selectedProject === "NEXT_7"
           ? newTasks.filter(
@@ -41,6 +43,7 @@ export const useTasks = (selectedProject) => {
       );
       setArchivedTasks(newTasks.filter((task) => task.archived !== false));
     });
+
     return () => unsubscribe();
   }, [selectedProject]);
 
@@ -48,24 +51,26 @@ export const useTasks = (selectedProject) => {
 };
 
 export const useProjects = () => {
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState(null);
 
   useEffect(() => {
     firebase
       .firestore()
       .collection("projects")
-      .where("userID", "==", "dasdsadsdd")
-      .orderBy("projectId")
+      .where("userid", "==", "omar01125")
+      .orderBy("projectid")
       .get()
       .then((snapshot) => {
         const allProjects = snapshot.docs.map((project) => ({
           ...project.data(),
           docId: project.id,
         }));
+
         if (JSON.stringify(allProjects) !== JSON.stringify(projects)) {
           setProjects(allProjects);
         }
       });
   }, [projects]);
+
   return { projects, setProjects };
 };

@@ -1,5 +1,6 @@
 import React from "react";
 import { firebase } from "../firebase";
+
 export const Checkbox = ({ id }) => {
   const archiveTask = () => {
     firebase
@@ -10,6 +11,7 @@ export const Checkbox = ({ id }) => {
         archived: true,
       });
   };
+
   return (
     <div
       className="checkbox-holder"

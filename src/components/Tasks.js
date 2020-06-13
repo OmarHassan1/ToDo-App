@@ -1,8 +1,13 @@
 import React from "react";
 import { Checkbox } from "./Checkbox";
+import { useTasks } from "../hooks";
 export const Tasks = () => {
-  const tasks = [];
-  let projectName = "";
+  const { tasks } = useTasks("1");
+
+  console.log(tasks);
+
+  const projectName = "";
+
   return (
     <div className="tasks" data-testid="tasks">
       <h2 data-testid="project-name">{projectName}</h2>
