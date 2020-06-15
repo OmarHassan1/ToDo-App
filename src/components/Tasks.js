@@ -12,10 +12,19 @@ export const Tasks = () => {
   const { tasks } = useTasks(selectedProject);
   let projectName = "";
 
-  if (projects && selectedProject && !collatedTasksExist(selectedProject)) {
-    projectName = getTitle(projects, selectedProject).name;
-    console.log("projectName 1:", projectName);
+  try {
+    if (
+      projects &&
+      projects.length > 0 &&
+      selectedProject &&
+      !collatedTasksExist(selectedProject)
+    ) {
+      projectName = getTitle(projects, selectedProject).name;
+    }
+  } catch (err) {
+    console.log(err);
   }
+
   if (collatedTasksExist(selectedProject) && selectedProject) {
     projectName = getCollatedTitle(collatedTasks, selectedProject).name;
     console.log("projectName 2:", projectName);
