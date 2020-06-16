@@ -30,6 +30,7 @@ export const IndividualProject = ({ project }) => {
         onKeyDown={() => setShowConfirm(!showConfirm)}
         onClick={() => setShowConfirm(!showConfirm)}
         role="button"
+        tabIndex={0}
       >
         <FaTrashAlt />
         {showConfirm && (
