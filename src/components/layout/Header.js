@@ -5,11 +5,12 @@ import { AddTasks } from "../AddTasks";
 export const Header = ({ darkMode, setDarkMode }) => {
   const [shouldShowMain, setShouldShowMain] = useState(false);
   const [showQuickAddTask, setShowQuickAddTask] = useState(false);
+
   return (
     <header className="header" data-testid="header">
       <nav>
         <div className="logo">
-          <img src="/images/logo.png" alt="todoApp" />
+          <img src="/images/logo.png" alt="Todoist" />
         </div>
         <div className="settings">
           <ul>
@@ -30,7 +31,7 @@ export const Header = ({ darkMode, setDarkMode }) => {
                 +
               </button>
             </li>
-            <li data-testid="dark-mode-action" className="settings__darkmode">
+            <li className="settings__darkmode">
               <button
                 data-testid="dark-mode-action"
                 aria-label="Darkmode on/off"
@@ -44,6 +45,7 @@ export const Header = ({ darkMode, setDarkMode }) => {
           </ul>
         </div>
       </nav>
+
       <AddTasks
         showAddTaskMain={false}
         shouldShowMain={shouldShowMain}

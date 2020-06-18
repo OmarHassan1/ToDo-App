@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { FaRegListAlt, FaRegCalendarAlt } from "react-icons/fa";
 import moment from "moment";
+import PropTypes from "prop-types";
 import { firebase } from "../firebase";
 import { useSelectedProjectValue } from "../context";
-import { TaskDate } from "./TaskDate";
-
 import { ProjectOverlay } from "./ProjectOverlay";
+import { TaskDate } from "./TaskDate";
 
 export const AddTasks = ({
   showAddTaskMain = true,
@@ -33,6 +33,7 @@ export const AddTasks = ({
         .add(7, "days")
         .format("DD/MM/YYYY");
     }
+
     return (
       task &&
       projectid &&
@@ -54,6 +55,7 @@ export const AddTasks = ({
         })
     );
   };
+
   return (
     <div
       className={showQuickAddTask ? "add-task add-task__overlay" : "add-task"}
@@ -175,4 +177,11 @@ export const AddTasks = ({
       )}
     </div>
   );
+};
+
+AddTasks.propTypes = {
+  showAddTaskMain: PropTypes.bool,
+  shouldShowMain: PropTypes.bool,
+  showQuickAddTask: PropTypes.bool,
+  setShowQuickAddTask: PropTypes.func,
 };
